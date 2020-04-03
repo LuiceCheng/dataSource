@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunmnet.bigdata.task.dao.slave.StudentSignDao">
+    <resultMap id="BaseResultMap" type="com.sunmnet.bigdata.task.entity.StudentSign">
+        <result column="id" jdbcType="CHAR" property="id" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+    </sql>
+    <sql id="Prefixed_Example_Where_Clause">
+        <where>
+            1=1
+            <if test="record.id != null and record.id != ''">
+                and id = #{record.id,jdbcType=CHAR}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from student_sign
+        <include refid="Prefixed_Example_Where_Clause" />
+    </select>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        <!--
+            警告 -
+            此语句为代码生成器自动生成,请勿更改
+        -->
+        insert into student_sign(
+        id)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (
+            #{item.id,jdbcType=CHAR}}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="batchInsertSelective" parameterType="java.util.List">
+        <!--
+            警告 -
+            此语句为代码生成器自动生成,请勿更改
+        -->
+        <foreach collection="list" index="index" item="item" separator=";">
+            insert into student_sign
+            <set>
+                <if test="item.id != null and item.id != ''">
+                    id = #{item.id,jdbcType=CHAR},
+                </if>
+                <if test="item.userid != null and item.userid != ''">
+                    userid = #{item.userid,jdbcType=CHAR},
+                </if>
+                <if test="item.groupname != null and item.groupname != ''">
+                    groupname = #{item.groupname,jdbcType=CHAR},
+                </if>
+                <if test="item.checkin_type != null and item.checkin_type != ''">
+                    checkin_type = #{item.checkin_type,jdbcType=CHAR},
+                </if>
+                <if test="item.exception_type != null and item.exception_type != ''">
+                    exception_type = #{item.exception_type,jdbcType=CHAR},
+                </if>
+                <if test="item.checkin_time != null and item.checkin_time != ''">
+                    checkin_time = #{item.checkin_time,jdbcType=BIGINT},
+                </if>
+                <if test="item.location_title != null and item.location_title != ''">
+                    location_title = #{item.location_title,jdbcType=CHAR},
+                </if>
+                <if test="item.location_detail != null and item.location_detail != ''">
+                    location_detail = #{item.location_detail,jdbcType=CHAR},
+                </if>
+                <if test="item.wifiname != null and item.wifiname != ''">
+                    wifiname = #{item.wifiname,jdbcType=CHAR},
+                </if>
+                <if test="item.notes != null and item.notes != ''">
+                    notes = #{item.notes,jdbcType=CHAR},
+                </if>
+                <if test="item.wifimac != null and item.wifimac != ''">
+                    wifimac = #{item.wifimac,jdbcType=CHAR},
+                </if>
+                <if test="item.lat != null and item.lat != ''">
+                    lat = #{item.lat,jdbcType=BIGINT},
+                </if>
+                <if test="item.lng != null and item.lng != ''">
+                    lng = #{item.lng,jdbcType=BIGINT},
+                </if>
+                <if test="item.deviceid != null and item.deviceid != ''">
+                    deviceid = #{item.deviceid,jdbcType=CHAR},
+                </if>
+                <if test="item.createAt != null">
+                    createAt = #{item.createAt,jdbcType=TIMESTAMP}
+                </if>
+            </set>
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:3309/web_statis1?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&allowMultiQueries=true
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+    slave:
+      url: jdbc:mysql://localhost:3309/sunmnet_task?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&allowMultiQueries=true
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  port: 8083
+  servlet:
+    context-path: /
+
+mybatis:
+  mapper-locations: classpath*:mybatis/master/*.xml,classpath*:mybatis/slave/*.xml
+  type-aliases-package: com.sunment.bigdata.task.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+task:
+  corn: '0 0 22 * * ?'
+  startTime: '06:30:00'
+  endTime: '22:00:00'
+  corpID: ww7fb9de0813c6ea1d
+  secret: je3l3aNKseaHsIyijIRE6eecxAeir20LDzv8morMVsM
