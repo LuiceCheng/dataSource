@@ -1,9 +1,10 @@
 package com.sunmnet.bigdata.task.service;
 
 
-import java.util.List;
+import com.sunmnet.bigdata.task.vo.PageRequest;
+import com.sunmnet.bigdata.task.vo.PageResponse;
 
 public interface IStudentInfoService {
 
-    List<String> getStudent(int pageNum, int pageSize);
+    PageResponse<String> getStudent(PageRequest pageRequest);
 }

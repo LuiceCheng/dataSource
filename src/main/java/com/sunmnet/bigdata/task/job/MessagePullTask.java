@@ -1,14 +1,13 @@
 package com.sunmnet.bigdata.task.job;
 
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.sunmnet.bigdata.task.entity.StudentSign;
 import com.sunmnet.bigdata.task.service.IStudentInfoService;
 import com.sunmnet.bigdata.task.service.IStudentSignService;
 import com.sunmnet.bigdata.task.service.WeiXinOperatingAddress;
 import com.sunmnet.bigdata.task.util.DateUtils;
 import com.sunmnet.bigdata.task.vo.CheckInRecord;
+import com.sunmnet.bigdata.task.vo.PageRequest;
+import com.sunmnet.bigdata.task.vo.PageResponse;
 import com.sunmnet.bigdata.task.vo.ParamsVo;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,7 @@ public class MessagePullTask {
     public void getMessage() throws Exception {
         int pageNum = 1;
         int pageSize = 100;
+        PageRequest pageRequest = new PageRequest(pageNum, pageSize);
         int selectSize;
         ParamsVo paramsVo = new ParamsVo();
         String startDate = DateUtils.dateToString(new Date(), DateUtils.PATTERN_DATE) + " " + startTime;
@@ -56,10 +56,10 @@ public class MessagePullTask {
         paramsVo.setCorpID(corpID);
         paramsVo.setSecret(secret);
         do {
-            List<String> student = infoService.getStudent((pageNum - 1) * pageSize, pageSize);
-            selectSize = student.size();
-            pageNum += 1;
-            String[] userIds = (String[]) student.toArray(new String[student.size()]);
+            PageResponse<String> student = infoService.getStudent(pageRequest);
+            selectSize = student.getRow().size();
+            pageRequest.setPage(pageRequest.getPage() + 1);
+            String[] userIds = (String[]) student.getRow().toArray(new String[student.getRow().size()]);
             paramsVo.setUserId(userIds);
 
             JSONObject checkin = WeiXinOperatingAddress.getCheckin(paramsVo);

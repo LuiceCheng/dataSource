@@ -1,12 +1,12 @@
 package com.sunmnet.bigdata.task.controller;
 
 import com.sunmnet.bigdata.task.service.IStudentInfoService;
+import com.sunmnet.bigdata.task.vo.PageRequest;
+import com.sunmnet.bigdata.task.vo.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cxs")
@@ -15,8 +15,8 @@ public class TestController {
     private IStudentInfoService studentInfoService;
 
     @GetMapping("test")
-    public List<String> test(){
-        List<String> student = studentInfoService.getStudent(0, 1);
+    public PageResponse<String> test(PageRequest pageRequest){
+        PageResponse<String> student = studentInfoService.getStudent(pageRequest);
         return student;
     }
 
